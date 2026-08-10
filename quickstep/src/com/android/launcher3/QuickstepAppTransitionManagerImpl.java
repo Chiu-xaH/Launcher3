@@ -23,6 +23,7 @@ import static com.android.launcher3.BaseActivity.PENDING_INVISIBLE_BY_WALLPAPER_
 import static com.android.launcher3.LauncherState.ALL_APPS;
 import static com.android.launcher3.LauncherState.BACKGROUND_APP;
 import static com.android.launcher3.LauncherState.OVERVIEW;
+import static com.android.launcher3.LerpKt.customLerp;
 import static com.android.launcher3.Utilities.postAsyncCallback;
 import static com.android.launcher3.allapps.AllAppsTransitionController.ALL_APPS_PROGRESS;
 import static com.android.launcher3.anim.Interpolators.AGGRESSIVE_EASE;
@@ -498,7 +499,8 @@ public abstract class QuickstepAppTransitionManagerImpl extends LauncherAppTrans
         AnimatorSet animatorSet = new AnimatorSet();
         ValueAnimator appAnimator = ValueAnimator.ofFloat(0, 1);
         appAnimator.setDuration(APP_LAUNCH_DURATION);
-        appAnimator.setInterpolator(LINEAR);
+        // 修改动画插值器
+        appAnimator.setInterpolator(new CubicEaseOutInterpolator());
         appAnimator.addListener(floatingView);
         appAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -591,15 +593,20 @@ public abstract class QuickstepAppTransitionManagerImpl extends LauncherAppTrans
                     SurfaceParams.Builder builder = new SurfaceParams.Builder(target.leash);
 
                     if (target.mode == MODE_OPENING) {
+                        // 打开动画
                         matrix.setScale(scale, scale);
                         matrix.postTranslate(windowTransX0, windowTransY0);
 
-                        floatingView.update(iconBounds, mIconAlpha.value, percent, 0f,
+                        // 设置圆角
+                        float screenCornerRadius = 50f;
+                        float iconCornerRadius = 10f;
+                        android.util.Log.d("xah","mWindowRadius.value="+mWindowRadius.value);
+                        floatingView.update(iconBounds, mIconAlpha.value, percent, screenCornerRadius,
                                 mWindowRadius.value * scale, true /* isOpening */);
                         builder.withMatrix(matrix)
                                 .withWindowCrop(crop)
-                                .withAlpha(1f - mIconAlpha.value)
-                                .withCornerRadius(mWindowRadius.value);
+                                .withAlpha(1f)
+                                .withCornerRadius(customLerp(iconCornerRadius,screenCornerRadius,percent));
                     } else {
                         tmpPos.set(target.position.x, target.position.y);
                         if (target.localBounds != null) {
@@ -622,7 +629,9 @@ public abstract class QuickstepAppTransitionManagerImpl extends LauncherAppTrans
 
         // When launching an app from overview that doesn't map to a task, we still want to just
         // blur the wallpaper instead of the launcher surface as well
-        boolean allowBlurringLauncher = mLauncher.getStateManager().getState() != OVERVIEW;
+        // 启用背景模糊
+        boolean allowBlurringLauncher = true;
+//                mLauncher.getStateManager().getState() != OVERVIEW;
         DepthController depthController = mLauncher.getDepthController();
         ObjectAnimator backgroundRadiusAnim = ObjectAnimator.ofFloat(depthController, DEPTH,
                 BACKGROUND_APP.getDepth(mLauncher))

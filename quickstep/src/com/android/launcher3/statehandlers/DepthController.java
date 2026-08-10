@@ -215,6 +215,7 @@ public class DepthController implements StateHandler<LauncherState>,
         }
 
         boolean supportsBlur = BlurUtils.supportsBlursOnWindows();
+        android.util.Log.d("xah","supportsBlur"+supportsBlur);
         if (supportsBlur && (mSurface == null || !mSurface.isValid())) {
             return;
         }

@@ -98,6 +98,26 @@
     </grid-option>
 
     <grid-option
+        launcher:name="6_by_4"
+        launcher:numRows="6"
+        launcher:numColumns="4"
+        launcher:numFolderRows="4"
+        launcher:numFolderColumns="3"
+        launcher:numHotseatIcons="4"
+        launcher:dbFile="launcher_6_by_4.db"
+        launcher:defaultLayoutId="@xml/default_workspace_4x4" >
+
+        <display-option
+            launcher:name="Large Phone"
+            launcher:minWidthDps="406"
+            launcher:minHeightDps="694"
+            launcher:iconImageSize="55"
+            launcher:iconTextSize="15.0"
+            launcher:canBeDefault="true" />
+
+    </grid-option>
+
+    <grid-option
         launcher:name="5_by_5"
         launcher:numRows="5"
         launcher:numColumns="5"

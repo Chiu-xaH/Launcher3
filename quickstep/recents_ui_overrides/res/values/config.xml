@@ -14,5 +14,6 @@
      limitations under the License.
 -->
 <resources>
-    <integer name="max_depth_blur_radius">150</integer>
+<!--    壁纸模糊修改-->
+    <integer name="max_depth_blur_radius">500</integer>
 </resources>
