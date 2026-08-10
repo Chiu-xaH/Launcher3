@@ -36,6 +36,7 @@ import com.android.launcher3.util.LooperIdleLock;
 import com.android.launcher3.util.ViewOnDrawExecutor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -96,6 +97,7 @@ public abstract class BaseLoaderResults {
     public void bindAllApps() {
         // shallow copy
         AppInfo[] apps = mBgAllAppsList.copyData();
+        XahPrinter.INSTANCE.logApps(Arrays.asList(apps));
         int flags = mBgAllAppsList.getFlags();
         executeCallbacksTask(c -> c.bindAllApplications(apps, flags), mUiExecutor);
     }

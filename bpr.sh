@@ -30,6 +30,3 @@ echo "==> [4/4] Restarting Launcher"
 adb shell am force-stop "$LAUNCHER_PKG"
 sleep 1
 adb shell am start -a android.intent.action.MAIN -c android.intent.category.HOME >/dev/null 2>&1
-
-echo "==> Done. Watching logs (Ctrl+C to stop)..."
-adb logcat -s xah

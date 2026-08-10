@@ -14,6 +14,7 @@ buildscript {
     dependencies {
         classpath GRADLE_CLASS_PATH
         classpath PROTOBUF_CLASS_PATH
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     }
 }
 
@@ -22,6 +23,7 @@ final String FRAMEWORK_PREBUILTS_DIR = "${ANDROID_TOP}/prebuilts/framework_inter
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion COMPILE_SDK
@@ -182,6 +184,7 @@ allprojects {
 
 dependencies {
     compileOnly files('libs/framework.jar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
     implementation "androidx.dynamicanimation:dynamicanimation:1.0.0"
     implementation("androidx.recyclerview:recyclerview:1.2.0") {
         exclude group: 'androidx.core', module: 'core'
