@@ -1,14 +1,15 @@
 buildscript {
     repositories {
         maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
+            url 'https://maven.aliyun.com/repository/central'
         }
         maven {
-            url 'https://maven.aliyun.com/repository/central'
+            url 'https://maven.aliyun.com/repository/jcenter'
         }
         maven {
             url 'https://maven.aliyun.com/repository/google'
         }
+        mavenCentral()
     }
     dependencies {
         classpath GRADLE_CLASS_PATH
@@ -104,7 +105,7 @@ android {
 
         androidTest {
             res.srcDirs = ['tests/res']
-            java.srcDirs = ['tests/src', 'tests/tapl']
+            java.srcDirs = []
             manifest.srcFile "tests/AndroidManifest-common.xml"
         }
 
@@ -153,14 +154,15 @@ android {
 allprojects {
     repositories {
         maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
+            url 'https://maven.aliyun.com/repository/central'
         }
         maven {
-            url 'https://maven.aliyun.com/repository/central'
+            url 'https://maven.aliyun.com/repository/jcenter'
         }
         maven {
             url 'https://maven.aliyun.com/repository/google'
         }
+        mavenCentral()
     }
 
     gradle.projectsEvaluated {
@@ -216,7 +218,7 @@ dependencies {
 protobuf {
     // Configure the protoc executable
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.0.0'
+        path = "${rootDir}/protoc_bin/protoc"
 
         generateProtoTasks {
             all().each { task ->

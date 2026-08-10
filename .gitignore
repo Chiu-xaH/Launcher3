@@ -14,3 +14,6 @@ local.properties
 build/
 gradlew*
 .DS_Store
+protoc_bin/
+.run/
+build/
