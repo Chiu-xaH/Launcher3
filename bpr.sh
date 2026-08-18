@@ -4,7 +4,7 @@
 
 set -e
 
-LAUNCHER_DIR="/Users/sihan.zhao/StudioProjects/Launcher3"
+LAUNCHER_DIR="/Users/sihan.zhao/StudioProjects/AospApps/Launcher3"
 DEFAULT_APK="$LAUNCHER_DIR/build/outputs/apk/aospWithQuickstep/debug/Launcher3-aosp-withQuickstep-debug.apk"
 APK="${1:-$DEFAULT_APK}"
 DEVICE_PATH="/system_ext/priv-app/Launcher3QuickStep/Launcher3QuickStep.apk"
